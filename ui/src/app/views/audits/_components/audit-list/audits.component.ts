@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuditInfo } from '../../_models/audit-info.model';
-import { AuditsService } from '../../_services/audits.service';
+import { AuditService } from '../../_services/audit.service';
 
 
 @Component({
@@ -10,13 +10,13 @@ import { AuditsService } from '../../_services/audits.service';
 export class AuditsComponent implements OnInit {
 
   auditInfoList: AuditInfo[] = [];
-  constructor(private auditsService: AuditsService,
+  constructor(private auditService: AuditService,
               private router: Router) { }
 
   ngOnInit(): void {
     console.log('initializing audits component..');
 
-    this.auditsService.getAllAudits().subscribe(
+    this.auditService.getAllAudits().subscribe(
       (auditInfoList: AuditInfo[]) => {
         console.log(auditInfoList);
         this.auditInfoList = auditInfoList;

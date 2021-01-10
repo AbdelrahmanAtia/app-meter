@@ -34,18 +34,21 @@ import org.springframework.web.filter.CorsFilter;
  * 7-  (FE) => add audit entry id to url and retrieve 
  *             audit info based on it.
  *             
+ * 8-   implement audit info dao using (jpa - jpql - named queries - named native queries)
+ * 10-  implement auditInfoDao using Hibernate HQL
  * 8- make backend and front end in modules such as in 
  *    thingsboard app
  *    
  * 9- hide all useless elements of the angular template..
+ * 11- FE >> add devtools dependency
  *     
  *done
  *=====
  *
  */
 
-@EntityScan(basePackages = { "com.javaworld.appmeter" })
-@SpringBootApplication(scanBasePackages = { "com.javaworld.appmeter" })
+@EntityScan(basePackages = { "com.javaworld.application" })
+@SpringBootApplication(scanBasePackages = { "com.javaworld.application" })
 public class AppMeterApplication {
 
 	public static void main(String[] args) {

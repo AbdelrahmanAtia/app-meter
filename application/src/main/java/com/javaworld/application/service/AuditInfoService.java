@@ -5,17 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.javaworld.application.dao.AuditInfoDao;
+import com.javaworld.application.dao.HibernateHqlAuditInfoDaoImpl;
 import com.javaworld.application.model.AuditInfo;
 
 @Service
 public class AuditInfoService {
 
 	@Autowired
-	AuditInfoDao auditInfoDao;
+	HibernateHqlAuditInfoDaoImpl auditInfoDao;
 
 	public List<AuditInfo> getAllAudits() {	
-		System.out.println("starting the service");
 		return auditInfoDao.getAllAudits();
+	}
+
+	public AuditInfo getAuditDetailsByAuditId(long auditId) {
+		return auditInfoDao.getAuditDetailsByAuditId(auditId);
 	}
 }
