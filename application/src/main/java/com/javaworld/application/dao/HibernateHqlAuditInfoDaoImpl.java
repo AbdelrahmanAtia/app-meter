@@ -11,18 +11,24 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.javaworld.application.model.AuditInfo;
+import com.javaworld.application.util.HibernateUtil;
 
 @Repository
 public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 
+	
+	/*
 	private SessionFactory sessionFactory;
 
 	public HibernateHqlAuditInfoDaoImpl(@Autowired EntityManagerFactory emf) {
-		this.sessionFactory = emf.unwrap(SessionFactory.class);
+		this.sessionFactory = emf.unwrap(SessionFactory.class);		
 	}
+	*/
 
 	public List<AuditInfo> getAllAudits() {
-		Session session = sessionFactory.openSession();
+		
+		//Session session = sessionFactory.openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 		Query<AuditInfo> hqlQuery = session.createQuery("from AuditInfo", AuditInfo.class);
 		List<AuditInfo> auditsList = hqlQuery.list();
@@ -33,12 +39,13 @@ public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 	}
 
 	public AuditInfo getAuditDetailsByAuditId(long auditId) {
-		Session session = sessionFactory.openSession();
+		System.out.println("auditId: " + auditId);
+		// Session session = sessionFactory.openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
-		Query<AuditInfo> hqlQuery = session
-				.createQuery("from AuditInfo where id = :id", AuditInfo.class)
-				.setParameter("id", auditId);
-		AuditInfo auditInfo = hqlQuery.getSingleResult();
+
+		AuditInfo auditInfo = session.get(AuditInfo.class, auditId);
+		System.out.println(auditInfo);
 		tx.commit();
 		session.close();
 		return auditInfo;

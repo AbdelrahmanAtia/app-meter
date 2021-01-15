@@ -12,7 +12,7 @@
               <div class="col-md-9">
                 <p class="form-control-static">{{auditInfo.username}}</p>
               </div>
-            </div>
+            </div> 
 
             <div class="form-group row">
               <label class="col-md-3 col-form-label">Transaction Id</label>
@@ -31,14 +31,14 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label">Request Time</label>
               <div class="col-md-9">
-                <p class="form-control-static">{{auditInfo.requestTime}}</p>
+                <p class="form-control-static">{{auditInfo.requestTime | date:'medium' }}</p>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-md-3 col-form-label">Response Time</label>
               <div class="col-md-9">
-                <p class="form-control-static">{{auditInfo.responseTime}}</p>
+                <p class="form-control-static">{{auditInfo.responseTime | date:'medium' }}</p>
               </div>
             </div>
 
@@ -79,7 +79,9 @@
 
             <div class="form-group row">
               <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="20" class="form-control" placeholder="Content.."></textarea>
+                <textarea style="white-space: nowrap; overflow: auto;" id="textarea-input"                         
+                          name="textarea-input" rows="20" wrap="soft" class="form-control" placeholder="Content.."
+                          ng-list="&#10;">{{showLogs()}}</textarea>
               </div>
             </div>
 

@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.javaworld.application.model.AuditInfo"
+		table="AUDIT_INFO">
+
+		<id name="id" type="long" column="id">
+			<generator class="native" />
+		</id>
+
+		
+		<property name="username" column="username" type="string" />
+		<property name="requestTime" column="request_time" type="timestamp" />
+		<property name="responseTime" column="response_time" type="timestamp" />
+		<property name="appTransaction" column="app_transaction" type="string" />		
+		<property name="url" column="url" type="string" />
+		<property name="srcIp" column="src_ip" type="string" />
+		<property name="targetIp" column="target_ip" type="string" />
+		<property name="responseStatus" column="response_status" type="string" />
+		<property name="responseDesc" column="response_desc" type="string" />
+		 
+		 
+	</class>
+</hibernate-mapping>

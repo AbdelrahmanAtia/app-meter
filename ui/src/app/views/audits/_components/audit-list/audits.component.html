@@ -33,14 +33,14 @@
                 <tr *ngFor='let a of auditInfoList'>
                   <td>{{a.id}}</td>
                   <td>{{a.username}}</td>
-                  <td>{{a.requestTime}}</td>
-                  <td>{{a.responseTime}}</td>
+                  <td>{{a.requestTime | date:'medium'}}</td>
+                  <td>{{a.responseTime | date:'medium'}}</td>
                   <!--
                   <td>{{a.appTransaction}}</td>
                   -->
                   <td>{{a.url}}</td>
                   <td>{{a.responseStatus}}</td>
-                  <td>
+                  <td style="cursor: pointer;">
                     <i class="cui-chevron-right icons font-2xl d-block mt-1"
                        (click)='viewAuditDetails()'></i> 
                   </td>

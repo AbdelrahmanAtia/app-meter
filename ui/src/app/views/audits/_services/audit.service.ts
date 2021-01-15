@@ -7,8 +7,8 @@ import { AuditInfo } from '../_models/audit-info.model';
   providedIn: 'root'
 })
 export class AuditService {
- 
-  
+
+
   constructor(private httpClient: HttpClient) { }
 
   getAllAudits(): Observable<AuditInfo[]> {
@@ -23,7 +23,11 @@ export class AuditService {
     return response;
   }
 
-  
+  getAuditLogs(transactionId: string, requestDate: Date): Observable<string[]> {
+    let url: string = 'http://localhost:8080/app-meter/rest/api/audit/logs/' + transactionId + '/' + requestDate;
+    let response: Observable<string[]> = this.httpClient.get<string[]>(url);
+    return response;
+  }
 
 
 }

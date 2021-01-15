@@ -6,11 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "AUDIT_INFO")
+//@Entity
+//@Table(name = "AUDIT_INFO")
 public class AuditInfo {
 
-	@Id
+	// @Id
 	private long id;
 	private String username;
 	private Date requestTime;

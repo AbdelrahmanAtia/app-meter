@@ -3,6 +3,7 @@ package com.javaworld.application.main;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -17,7 +18,11 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * to do
  * =======
- * 1- what is the diffrence between java.util.Date and
+ * 
+ * -1 - read database columns names from a properties file, cause we can have 
+ *      different databases with different column names
+ *      
+ * 1- what is the difference between java.util.Date and
  *    java.sql.Date in AuditInfo member variables ?
  *    
  * 2- int vs long identifier mapping by hibernate ?
@@ -40,15 +45,21 @@ import org.springframework.web.filter.CorsFilter;
  *    thingsboard app
  *    
  * 9- hide all useless elements of the angular template..
- * 11- FE >> add devtools dependency
+ * 11- BE >> add devtools dependency   --->> don't it cause alot of weird memory issues
+ * 12- FE >> send audit info details from audit list component to audit-info component
+ *           when clicking on >> icon.. and don't retrieve audit details from backend
+ *           
+ * 13- BE >> handle case when log file does not has date in it's name
+ *           [the same day request]
  *     
  *done
  *=====
  *
  */
 
-@EntityScan(basePackages = { "com.javaworld.application" })
-@SpringBootApplication(scanBasePackages = { "com.javaworld.application" })
+//@EntityScan(basePackages = { "com.javaworld.application" })
+@SpringBootApplication(scanBasePackages = { "com.javaworld.application" }, 
+                       exclude = { DataSourceAutoConfiguration.class })
 public class AppMeterApplication {
 
 	public static void main(String[] args) {
