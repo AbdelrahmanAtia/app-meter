@@ -1,5 +1,7 @@
 package com.javaworld.application.main;
 
+import javax.sql.DataSource;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -46,15 +48,18 @@ import org.springframework.web.filter.CorsFilter;
  *    
  * 9- hide all useless elements of the angular template..
  * 11- BE >> add devtools dependency   --->> don't it cause alot of weird memory issues
- * 12- FE >> send audit info details from audit list component to audit-info component
+ * 12- BE >> return only first 20 request
+ * 13- BE >> enable pagging
+ * 14- BE >> allow searching for audits of a certain user
+ * 15- FE >> send audit info details from audit list component to audit-info component
  *           when clicking on >> icon.. and don't retrieve audit details from backend
- *           
- * 13- BE >> handle case when log file does not has date in it's name
- *           [the same day request]
+ * 16- FE >>  add pagination, search by username, filter by response status [success/fail]
  *     
- *done
- *=====
- *
+ * done
+ *=======
+ * >> BE >> retrieve audits ordered by request time descending
+ * >> BE >> handle case when log file does not has date in it's name
+ *           [the same day request]
  */
 
 //@EntityScan(basePackages = { "com.javaworld.application" })

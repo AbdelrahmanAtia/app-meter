@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuditInfo } from '../../_models/audit-info.model';
 import { AuditService } from '../../_services/audit.service';
+import { DataService } from '../../_services/data.service';
 
 @Component({
   templateUrl: './audit-info.component.html',
@@ -10,10 +12,26 @@ export class AuditInfoComponent implements OnInit {
   auditInfo: AuditInfo = new AuditInfo();
   auditLogs: string[] = [];
 
-  constructor(private auditService: AuditService) { }
+  constructor(private auditService: AuditService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.auditService.getAuditInfoById(1).subscribe(
+
+    //retrieve auditInfo details from auditInfoList component
+    
+    /*
+    this.dataService.currentAuditInfo.subscribe(
+      (response:AuditInfo) => {
+        if(response != null){
+          this.auditInfo = response;
+          this.getLogs(response.appTransaction, response.requestTime);
+        }
+      },
+      (error) => console.log(error)
+    );
+    */
+    let auditId:number = this.route.snapshot.params.auditId;
+    this.auditService.getAuditInfoById(auditId).subscribe(
       (response: AuditInfo) => {
         console.log(response);
         this.auditInfo = response;
@@ -21,6 +39,7 @@ export class AuditInfoComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+    
   }
 
   getLogs(transactionId: string, requestDate: Date) {

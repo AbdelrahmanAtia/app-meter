@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuditInfo } from '../../_models/audit-info.model';
 import { AuditService } from '../../_services/audit.service';
+import { DataService } from '../../_services/data.service';
 
 
 @Component({
@@ -28,11 +29,18 @@ export class AuditsComponent implements OnInit {
 
   }
 
-
-
-  viewAuditDetails(): void {
-    console.log('viewing full audit entry details')
-    this.router.navigate(['/audits/auditInfo']);
+  viewAuditDetails(auditId:number): void {
+    console.log('view audit entry details with id: ' + auditId);
+    this.router.navigate(['/audits/auditInfo/', auditId]);
+    /*
+    this.auditInfoList.forEach(element => {
+      if(element.id == auditId){
+        console.log('element found')
+        this.dataService.changeAuditInfo(element);
+        this.router.navigate(['/audits/auditInfo/', auditId]);
+      }
+    });
+    */
   }
 
 

@@ -12,7 +12,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'auditInfo',
+    path: 'auditInfo/:auditId',
     component: AuditInfoComponent,
     data: {
       title: 'Audit-Info'

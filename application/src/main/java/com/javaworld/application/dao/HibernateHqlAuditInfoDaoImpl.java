@@ -30,7 +30,8 @@ public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 		//Session session = sessionFactory.openSession();
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
-		Query<AuditInfo> hqlQuery = session.createQuery("from AuditInfo", AuditInfo.class);
+		Query<AuditInfo> hqlQuery = session
+				.createQuery("from AuditInfo order by requestTime desc", AuditInfo.class);
 		List<AuditInfo> auditsList = hqlQuery.list();
 		System.out.println("auditsList: " + auditsList);
 		tx.commit();
