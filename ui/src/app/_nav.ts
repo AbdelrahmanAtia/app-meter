@@ -12,7 +12,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Audits',
-    url: '/audits',
+    url: '/audits/ /1',  //empty space -> search, 1 -> pageNumber
     icon: 'icon-note'
   },
   {

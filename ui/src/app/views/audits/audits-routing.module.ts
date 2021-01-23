@@ -4,6 +4,7 @@ import { AuditInfoComponent } from './_components/audit-info/audit-info.componen
 import { AuditsComponent } from './_components/audit-list/audits.component';
 
 const routes: Routes = [
+  /*
   {
     path: '',
     component: AuditsComponent,
@@ -11,13 +12,24 @@ const routes: Routes = [
       title: 'Auditing'
     }
   },
+  */
+
   {
     path: 'auditInfo/:auditId',
     component: AuditInfoComponent,
     data: {
       title: 'Audit-Info'
     }
+  },
+  {
+    path: ':userName/:pageNumber',
+    component: AuditsComponent,
+    data: {
+      title: 'Auditing'
+    }
   }
+
+
 ];
 
 @NgModule({

@@ -48,8 +48,8 @@ import org.springframework.web.filter.CorsFilter;
  *    
  * 9- hide all useless elements of the angular template..
  * 11- BE >> add devtools dependency   --->> don't it cause alot of weird memory issues
- * 12- BE >> return only first 20 request
- * 13- BE >> enable pagging
+ * 12- BE >> configure hibernate to use a custom logger
+ * 13- BE >> enable pagination
  * 14- BE >> allow searching for audits of a certain user
  * 15- FE >> send audit info details from audit list component to audit-info component
  *           when clicking on >> icon.. and don't retrieve audit details from backend
@@ -60,6 +60,7 @@ import org.springframework.web.filter.CorsFilter;
  * >> BE >> retrieve audits ordered by request time descending
  * >> BE >> handle case when log file does not has date in it's name
  *           [the same day request]
+ * >> BE >> return only first 20 request.
  */
 
 //@EntityScan(basePackages = { "com.javaworld.application" })

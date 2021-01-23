@@ -7,12 +7,17 @@ import { AuditInfo } from '../_models/audit-info.model';
   providedIn: 'root'
 })
 export class AuditService {
-
-
+ 
   constructor(private httpClient: HttpClient) { }
 
   getAllAudits(): Observable<AuditInfo[]> {
     let url: string = 'http://localhost:8080/app-meter/rest/api/audit/all';
+    let response: Observable<AuditInfo[]> = this.httpClient.get<AuditInfo[]>(url);
+    return response;
+  }
+
+  getAudits(userName: string, pageNumber:number) {
+    let url: string = 'http://localhost:8080/app-meter/rest/api/audits?userName=' + userName + '&pageNumber=' + pageNumber;
     let response: Observable<AuditInfo[]> = this.httpClient.get<AuditInfo[]>(url);
     return response;
   }

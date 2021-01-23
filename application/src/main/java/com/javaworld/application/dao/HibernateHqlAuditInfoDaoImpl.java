@@ -16,22 +16,22 @@ import com.javaworld.application.util.HibernateUtil;
 @Repository
 public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 
-	
-	/*
-	private SessionFactory sessionFactory;
+	private static final int PAGE_SIZE = 20;
 
-	public HibernateHqlAuditInfoDaoImpl(@Autowired EntityManagerFactory emf) {
-		this.sessionFactory = emf.unwrap(SessionFactory.class);		
-	}
-	*/
+	/*
+	 * private SessionFactory sessionFactory;
+	 * 
+	 * public HibernateHqlAuditInfoDaoImpl(@Autowired EntityManagerFactory emf) {
+	 * this.sessionFactory = emf.unwrap(SessionFactory.class); }
+	 */
 
 	public List<AuditInfo> getAllAudits() {
-		
-		//Session session = sessionFactory.openSession();
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 		Query<AuditInfo> hqlQuery = session
-				.createQuery("from AuditInfo order by requestTime desc", AuditInfo.class);
+				.createQuery("from AuditInfo order by requestTime desc", AuditInfo.class)
+				.setFirstResult(0)
+				.setMaxResults(PAGE_SIZE);
 		List<AuditInfo> auditsList = hqlQuery.list();
 		System.out.println("auditsList: " + auditsList);
 		tx.commit();
@@ -40,16 +40,36 @@ public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 	}
 
 	public AuditInfo getAuditDetailsByAuditId(long auditId) {
-		System.out.println("auditId: " + auditId);
-		// Session session = sessionFactory.openSession();
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
-
 		AuditInfo auditInfo = session.get(AuditInfo.class, auditId);
 		System.out.println(auditInfo);
 		tx.commit();
 		session.close();
 		return auditInfo;
+	}
+
+	@Override
+	public List<AuditInfo> getAuditsByUserName(String userName, int pageNumber) {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = session.beginTransaction();
+
+		Query<AuditInfo> hqlQuery;
+		if (userName.trim().length() == 0) {
+			hqlQuery = session.createQuery("from AuditInfo order by requestTime desc", AuditInfo.class);
+		} else {
+			hqlQuery = session
+					.createQuery("from AuditInfo where username like :username order by requestTime desc", AuditInfo.class)
+					.setParameter("username", "%" + userName + "%");
+		}
+
+		hqlQuery.setFirstResult(0).setMaxResults(PAGE_SIZE);  //enable pagination
+		List<AuditInfo> audits = hqlQuery.list();
+		
+		tx.commit();
+		session.close();
+
+		return audits;
 	}
 
 }

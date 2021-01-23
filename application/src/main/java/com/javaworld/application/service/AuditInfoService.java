@@ -30,11 +30,13 @@ public class AuditInfoService {
 	public AuditInfo getAuditDetailsByAuditId(long auditId) {
 		return auditInfoDao.getAuditDetailsByAuditId(auditId);
 	}
+	
+	public List<AuditInfo> getAudits(String userName, int pageNumber) {
+		return auditInfoDao.getAuditsByUserName(userName, pageNumber);
+	}
 
 	public List<String> getAuditLogs(String transactionId, String requestDate) throws IOException {
-		System.out.println("requestDate: " + requestDate);
 		// String logsFilePath = cmsBackEndApplication.getLogsFilesPath() + File.separator + "project.log";
-		
 		requestDate = requestDate.substring(0, requestDate.indexOf('T'));
 		if (DateUtil.stringToDate(requestDate).isEqual(LocalDate.now())) {
 			requestDate = "";

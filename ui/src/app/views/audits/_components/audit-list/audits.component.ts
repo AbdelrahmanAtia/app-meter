@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuditInfo } from '../../_models/audit-info.model';
 import { AuditService } from '../../_services/audit.service';
-import { DataService } from '../../_services/data.service';
-
 
 @Component({
   templateUrl: './audits.component.html',
@@ -11,37 +9,41 @@ import { DataService } from '../../_services/data.service';
 export class AuditsComponent implements OnInit {
 
   auditInfoList: AuditInfo[] = [];
+  userNameSubStr: string;
+  pageNumber: number;
+
   constructor(private auditService: AuditService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log('initializing audits component..');
+    this.listenToRouteParamChanges();
+  }
 
-    this.auditService.getAllAudits().subscribe(
-      (auditInfoList: AuditInfo[]) => {
-        console.log(auditInfoList);
-        this.auditInfoList = auditInfoList;
-      },
-      (error) => {
-        console.log(error);
-      }
+  // called when any route param changes
+  listenToRouteParamChanges() {
+    this.route.params.subscribe(
+      params => {
+        this.userNameSubStr = (params['userName'] + "").trim();
+        this.pageNumber = +params['pageNumber'];
+        this.initializeAuditsList();
+      });
+  }
+
+  initializeAuditsList() {
+    this.auditService.getAudits(this.userNameSubStr, this.pageNumber).subscribe(
+      (auditInfoList: AuditInfo[]) => this.auditInfoList = auditInfoList,
+      (error) => console.log(error)
     );
-
   }
 
-  viewAuditDetails(auditId:number): void {
-    console.log('view audit entry details with id: ' + auditId);
+  viewAuditDetails(auditId: number): void {
     this.router.navigate(['/audits/auditInfo/', auditId]);
-    /*
-    this.auditInfoList.forEach(element => {
-      if(element.id == auditId){
-        console.log('element found')
-        this.dataService.changeAuditInfo(element);
-        this.router.navigate(['/audits/auditInfo/', auditId]);
-      }
-    });
-    */
   }
 
+  getAudits(userName: string, pageNumber: number) {
+    this.userNameSubStr = userName;
+    this.router.navigate(['/audits/', userName, pageNumber]);
+  }
 
 }

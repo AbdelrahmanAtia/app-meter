@@ -10,4 +10,7 @@ public interface AuditInfoDao {
 	
 	AuditInfo getAuditDetailsByAuditId(long auditId);
 	
+	List<AuditInfo> getAuditsByUserName(String userName, int pageNumber);
+
+	
 }
