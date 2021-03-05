@@ -8,8 +8,7 @@ public class DateUtil {
 	public static LocalDate stringToDate(String stringDate) {
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		return LocalDate.parse(stringDate, dateTimeFormatter);
-	}
-	
+	}	
 	
 
 }

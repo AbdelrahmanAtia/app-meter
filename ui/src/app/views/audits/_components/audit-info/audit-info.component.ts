@@ -35,22 +35,25 @@ export class AuditInfoComponent implements OnInit {
       (response: AuditInfo) => {
         console.log(response);
         this.auditInfo = response;
-        this.getLogs(response.appTransaction, response.requestTime);
+        response.logs.forEach(l => this.auditLogs.push(l + "\n"));
+        //this.getLogs(response.appTransaction, response.requestTime);
       },
       (error) => console.log(error)
     );
     
   }
 
+  /*
   getLogs(transactionId: string, requestDate: Date) {
     console.log("retrieving audit logs");
-    this.auditService.getAuditLogs(transactionId, requestDate).subscribe(
+    this.auditService.getAuditEntryLogs(transactionId, requestDate).subscribe(
       (logsLines: string[]) => {
         logsLines.forEach(l => this.auditLogs.push(l + "\n"));
       },
       (error) => console.log(error)
     );
   }
+  */
 
   showLogs(): string {
     return this.auditLogs.toString();

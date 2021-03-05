@@ -9,4 +9,5 @@ export class AuditInfo {
     srcIp:string = "";
     targetIp: string = "";
     responseDesc:string = "";
+    logs: string [] = [];
 }

@@ -1,15 +1,28 @@
 package com.javaworld.application.main;
 
-import javax.sql.DataSource;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.sql.DataSource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.context.ServletConfigAware;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.w3c.dom.Document;
 
 
 /**
@@ -67,31 +80,11 @@ import org.springframework.web.filter.CorsFilter;
 @SpringBootApplication(scanBasePackages = { "com.javaworld.application" }, 
                        exclude = { DataSourceAutoConfiguration.class })
 public class AppMeterApplication {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AppMeterApplication.class, args);
 	}
 	
 
-	/*
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.addAllowedOrigin("*");		
-		config.addAllowedHeader("*");
-		config.setAllowCredentials(true);
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("OPTIONS");
-		config.addAllowedMethod("GET");
-		config.addAllowedMethod("POST");
-		config.addAllowedMethod("PUT");
-		config.addAllowedMethod("DELETE");
-		config.addExposedHeader("totalPages");
-		source.registerCorsConfiguration("/**", config);
-		
-		return new CorsFilter(source);
-	}
-	*/
 
 }

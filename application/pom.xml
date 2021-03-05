@@ -8,6 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>application</artifactId>
+	<packaging>jar</packaging>
 
 
 	<properties>
@@ -41,23 +42,35 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- third party libraries -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- third party libraries -->
+
+		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+			</dependency> -->
+
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 		</dependency>
-		
-		<!-- 
+
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-hikaricp</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
- 		-->
+
+
+		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-hikaricp</artifactId> 
+			</dependency> -->
 
 
 	</dependencies>

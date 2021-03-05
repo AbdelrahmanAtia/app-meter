@@ -6,11 +6,9 @@ import com.javaworld.application.model.AuditInfo;
 
 public interface AuditInfoDao {
 	
-	List<AuditInfo> getAllAudits();
+	AuditInfo findById(long auditId);
 	
-	AuditInfo getAuditDetailsByAuditId(long auditId);
-	
-	List<AuditInfo> getAuditsByUserName(String userName, int pageNumber);
+	List<AuditInfo> findBy(String userName, String targetIp, int pageNumber);
 
 	
 }

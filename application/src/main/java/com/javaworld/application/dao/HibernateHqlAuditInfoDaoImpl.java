@@ -3,6 +3,7 @@ package com.javaworld.application.dao;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +18,9 @@ import com.javaworld.application.util.HibernateUtil;
 public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 
 	private static final int PAGE_SIZE = 20;
+	
+	
+	
 
 	/*
 	 * private SessionFactory sessionFactory;
@@ -25,21 +29,7 @@ public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 	 * this.sessionFactory = emf.unwrap(SessionFactory.class); }
 	 */
 
-	public List<AuditInfo> getAllAudits() {
-		Session session = HibernateUtil.getSession();
-		Transaction tx = session.beginTransaction();
-		Query<AuditInfo> hqlQuery = session
-				.createQuery("from AuditInfo order by requestTime desc", AuditInfo.class)
-				.setFirstResult(0)
-				.setMaxResults(PAGE_SIZE);
-		List<AuditInfo> auditsList = hqlQuery.list();
-		System.out.println("auditsList: " + auditsList);
-		tx.commit();
-		session.close();
-		return auditsList;
-	}
-
-	public AuditInfo getAuditDetailsByAuditId(long auditId) {
+	public AuditInfo findById(long auditId) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 		AuditInfo auditInfo = session.get(AuditInfo.class, auditId);
@@ -50,7 +40,7 @@ public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 	}
 
 	@Override
-	public List<AuditInfo> getAuditsByUserName(String userName, int pageNumber) {
+	public List<AuditInfo> findBy(String userName, String targetIp,int pageNumber) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 

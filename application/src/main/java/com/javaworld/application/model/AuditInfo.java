@@ -1,6 +1,7 @@
 package com.javaworld.application.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ public class AuditInfo {
 	private String targetIp;
 	private String responseStatus;
 	private String responseDesc;
+	private List<String> logs;
 
 	public AuditInfo() {
 
@@ -104,6 +106,14 @@ public class AuditInfo {
 
 	public void setResponseDesc(String responseDesc) {
 		this.responseDesc = responseDesc;
+	}
+	
+	public List<String> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(List<String> logs) {
+		this.logs = logs;
 	}
 
 	@Override
