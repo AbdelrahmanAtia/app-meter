@@ -27,11 +27,11 @@ public class AuditInfoController {
 	AuditInfoService auditInfoService;
 
 	@GetMapping("/audits")
-	public List<AuditInfo> getAudits(@RequestParam String userName, @RequestParam int pageNumber) {
-		System.out.println("userName: " + userName);
-		System.out.println("username len: " + userName.length());
+	public List<AuditInfo> getAudits(@RequestParam String searchTerm, @RequestParam int pageNumber) {
+		System.out.println("searchTerm: " + searchTerm);
+		System.out.println("searchTerm len: " + searchTerm.length());
 		System.out.println("pageNumber: " + pageNumber);
-		return auditInfoService.getAudits(userName, pageNumber);
+		return auditInfoService.getAudits(searchTerm, pageNumber);
 	}
 	
 	@GetMapping("/audits/{auditId}")

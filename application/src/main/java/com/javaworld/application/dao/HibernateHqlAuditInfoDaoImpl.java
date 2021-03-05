@@ -40,20 +40,20 @@ public class HibernateHqlAuditInfoDaoImpl implements AuditInfoDao {
 	}
 
 	@Override
-	public List<AuditInfo> findBy(String userName, String targetIp,int pageNumber) {
+	public List<AuditInfo> findBy(String searchTerm, String targetIp,int pageNumber) {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 
 		Query<AuditInfo> hqlQuery;
-		if (userName.trim().length() == 0) {
+		if (searchTerm.trim().length() == 0) {
 			hqlQuery = session.createQuery("from AuditInfo order by requestTime desc", AuditInfo.class);
 		} else {
 			hqlQuery = session
-					.createQuery("from AuditInfo where username like :username order by requestTime desc", AuditInfo.class)
-					.setParameter("username", "%" + userName + "%");
+					.createQuery("from AuditInfo where username like :searchTerm or url like :searchTerm order by requestTime desc", AuditInfo.class)
+					.setParameter("searchTerm", "%" + searchTerm + "%");
 		}
 
-		hqlQuery.setFirstResult(0).setMaxResults(PAGE_SIZE);  //enable pagination
+		hqlQuery.setFirstResult(pageNumber - 1).setMaxResults(PAGE_SIZE); // enable pagination
 		List<AuditInfo> audits = hqlQuery.list();
 		
 		tx.commit();

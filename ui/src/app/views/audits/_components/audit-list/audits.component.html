@@ -9,14 +9,13 @@
         <div  class="form-group">
           <div class="controls">
             <div class="input-group col-lg-4" style="padding: 0;">
-              <input #userName id="appendedInputButton" class="form-control" type="text" value="{{userNameSubStr}}" placeholder="Username">
+              <input #userName id="appendedInputButton" class="form-control" type="text" value="{{userNameSubStr}}" placeholder="Username or URL">
               <span class="input-group-append">
                 <button class="btn btn-secondary" type="button" (click)="getAudits(userName.value, 1)">Search</button>
               </span>
             </div>
           </div>
         </div>
-
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
@@ -105,18 +104,26 @@
           </table>
           <nav>
             <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
+
+              <li class="page-item" (click)="toPrevPage()">
+                <a class="page-link" style="cursor: pointer;">Prev</a>
               </li>
+
+              <li class="page-item active"><a class="page-link" href="#">{{pageNumber}}</a></li>
+              <!--
               <li class="page-item"><a class="page-link" href="#">2</a></li>
               <li class="page-item"><a class="page-link" href="#">3</a></li>
               <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              -->
+            
+              <li class="page-item" (click)="toNextPage()">
+                <a class="page-link" style="cursor: pointer;">Next</a>
+              </li>
+            
             </ul>
           </nav>
         </div>
       </div>
     </div>
-    <!--/.col-->
+    <!--/.col--> 
   </div>

@@ -6,7 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,9 +35,9 @@ public class AuditInfoService {
 	@Autowired
 	private HttpServletRequest httpServletRequest;
 	
-	public List<AuditInfo> getAudits(String userName, int pageNumber) {		
+	public List<AuditInfo> getAudits(String searchTerm, int pageNumber) {		
 		String targetIp = httpServletRequest.getLocalAddr();
-		return auditInfoDao.findBy(userName, targetIp, pageNumber);
+		return auditInfoDao.findBy(searchTerm, targetIp, pageNumber);
 	}
 
 	public AuditInfo getAuditEntryDetails(long auditId) throws IOException {
@@ -51,7 +53,7 @@ public class AuditInfoService {
 
 		
 		List<String> logsList = new ArrayList<>();
-		List<String> paths = getPathsList(requestDateTime, url);
+		Set<String> paths = getPathsList(requestDateTime, url);
 		
 		paths.forEach(logFilePath -> {
 			System.out.println("logFilePath: " + logFilePath);
@@ -72,24 +74,32 @@ public class AuditInfoService {
 	}
 	
 	
-	private List<String> getPathsList(Date requestDateTime, String url){
+	private Set<String> getPathsList(Date requestDateTime, String url){
 		
 		String[] basePaths = { "C:\\Users\\o-abdelrahman.attya\\cmab_configs\\wayyak\\logs_sec\\", 
                                "C:\\Users\\o-abdelrahman.attya\\app_configs\\cms\\logs",
                                "/app/home/oracle/cmab_configs/wayyak/logs_sec/"};
 		
-		List<String> paths = new ArrayList<>();
+		//List<String> paths = new ArrayList<>();
+		
+		Set <String> paths = new HashSet<>();  //used set instead of list to overcome duplicate paths for the 
+		                                       //same day request >> this is just a simple & quick solution
+		                                       //instead of using if statements
 
 		for (String basePath : basePaths) {
 
 			LogFilePathBuilder pathBuilder = new LogFilePathBuilder();
-			String logsFilePath = pathBuilder.setBasePath(basePath).setNodeName().setBranchName(url)
+			String logsFilePath = pathBuilder.setBasePath(basePath)
+					                         .setNodeName()
+					                         .setBranchName(url)
 					                         .setDatePrefix(requestDateTime).build();
 			
 			
 			LogFilePathBuilder prevPathBuilder = new LogFilePathBuilder();
-			String prevLogsFilePath = prevPathBuilder.setBasePath(basePath).setNodeName()
-					                                 .setBranchName(url).setEmptyDatePrefix().build();
+			String prevLogsFilePath = prevPathBuilder.setBasePath(basePath)
+					                                 .setNodeName()
+					                                 .setBranchName(url)
+					                                 .setEmptyDatePrefix().build();
 			
 			paths.add(logsFilePath);
 			paths.add(prevLogsFilePath);

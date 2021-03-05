@@ -8,7 +8,7 @@ public interface AuditInfoDao {
 	
 	AuditInfo findById(long auditId);
 	
-	List<AuditInfo> findBy(String userName, String targetIp, int pageNumber);
+	List<AuditInfo> findBy(String searchTerm, String targetIp, int pageNumber);
 
 	
 }

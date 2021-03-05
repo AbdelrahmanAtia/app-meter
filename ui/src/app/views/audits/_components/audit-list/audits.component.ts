@@ -11,6 +11,7 @@ export class AuditsComponent implements OnInit {
   auditInfoList: AuditInfo[] = [];
   userNameSubStr: string;
   pageNumber: number;
+  loading:boolean = true;
 
   constructor(private auditService: AuditService,
               private router: Router,
@@ -44,6 +45,16 @@ export class AuditsComponent implements OnInit {
   getAudits(userName: string, pageNumber: number) {
     this.userNameSubStr = userName;
     this.router.navigate(['/audits/', userName, pageNumber]);
+  }
+
+  toNextPage():void {
+    this.pageNumber = this.pageNumber + 1;
+    this.router.navigate(['/audits/', this.userNameSubStr, this.pageNumber]);
+  }
+
+  toPrevPage():void {
+    this.pageNumber = this.pageNumber - 1;
+    this.router.navigate(['/audits/', this.userNameSubStr, this.pageNumber]);    
   }
 
 }
