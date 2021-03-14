@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import com.javaworld.application.dao.HibernateHqlAuditInfoDaoImpl;
 import com.javaworld.application.model.AuditInfo;
 import com.javaworld.application.util.LogFilePathBuilder;
+import com.javaworld.application.util.XmlUtil;
 
 
 @Service
@@ -51,16 +53,32 @@ public class AuditInfoService {
 
 	public List<String> getAuditLogs(String transactionId, Date requestDateTime, String url) {
 
-		
+		System.out.println("starting AuditInfoService.getAuditLogs()");
 		List<String> logsList = new ArrayList<>();
 		Set<String> paths = getPathsList(requestDateTime, url);
+		
+		
 		
 		paths.forEach(logFilePath -> {
 			System.out.println("logFilePath: " + logFilePath);
 			Stream<String> linesStream = null;
 			try {
 				linesStream = Files.lines(Paths.get(logFilePath));
-				List<String> tempLogsList = linesStream.filter(l -> l.contains(transactionId)).collect(Collectors.toList());
+				
+				 String transactionLogs = linesStream
+						    .filter(l -> l.contains(transactionId))
+						    .map(line -> {
+						    	if(XmlUtil.containsXmlData(line)) {
+						    		line = line.substring(line.indexOf("<"));
+						    		return XmlUtil.prettyFormat(line);
+						    	} else {
+						    		return line;
+						    	}
+						    })
+                            .collect(Collectors.joining(System.lineSeparator()));
+				 
+				 List<String> tempLogsList = Arrays.asList(transactionLogs.split(System.lineSeparator()));
+				
 				logsList.addAll(tempLogsList);
 			} catch (IOException ex) {
 				System.out.println("error msg: " + ex.getMessage());
@@ -100,6 +118,8 @@ public class AuditInfoService {
 					                                 .setNodeName()
 					                                 .setBranchName(url)
 					                                 .setEmptyDatePrefix().build();
+			System.out.println(logsFilePath);
+			System.out.println(prevLogsFilePath);
 			
 			paths.add(logsFilePath);
 			paths.add(prevLogsFilePath);

@@ -64,6 +64,11 @@ import org.w3c.dom.Document;
  * 15- FE >> send audit info details from audit list component to audit-info component
  *           when clicking on >> icon.. and don't retrieve audit details from backend
  * 16- FE >> filter by response status [success/fail]
+ * 17- FE & BE >> allow extracting reports such as hits on services or projects
+ * 18- FE & BE >> show traffic in dash board
+ * 19- FE >> allow xml formatting for audit logs
+ * 20- FE >> add loading spinner when audits list is not retrieved yet..
+             and also for the audit entry details
  *     
  * done
  *=======
@@ -85,6 +90,4 @@ public class AppMeterApplication {
 		SpringApplication.run(AppMeterApplication.class, args);
 	}
 	
-
-
 }
