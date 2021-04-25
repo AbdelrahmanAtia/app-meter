@@ -1,28 +1,8 @@
 package com.javaworld.application.main;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.sql.DataSource;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.context.ServletConfigAware;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.w3c.dom.Document;
 
 
 /**
@@ -68,7 +48,11 @@ import org.w3c.dom.Document;
  * 18- FE & BE >> show traffic in dash board
  * 19- FE >> allow xml formatting for audit logs
  * 20- FE >> add loading spinner when audits list is not retrieved yet..
-             and also for the audit entry details
+ *           and also for the audit entry details
+ * 21- BE >> make this project as a jar that can be easily added to 
+ *           any app 
+ *           
+ *
  *     
  * done
  *=======

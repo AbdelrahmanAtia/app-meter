@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuditInfo } from '../../_models/audit-info.model';
 import { AuditService } from '../../_services/audit.service';
-import { DataService } from '../../_services/data.service';
 
 @Component({
   templateUrl: './audit-info.component.html',
@@ -10,7 +9,7 @@ import { DataService } from '../../_services/data.service';
 export class AuditInfoComponent implements OnInit {
 
   auditInfo: AuditInfo = new AuditInfo();
-  auditLogs: string[] = [];
+  auditLogs: string[] = []; 
 
   constructor(private auditService: AuditService,
               private route: ActivatedRoute) { }
@@ -35,12 +34,12 @@ export class AuditInfoComponent implements OnInit {
       (response: AuditInfo) => {
         console.log(response);
         this.auditInfo = response;
-        response.logs.forEach(l => this.auditLogs.push(l + "\n"));
+        this.auditLogs = response.logs.map(logLine => logLine.substr(1) + "\n");
+        //.forEach(l => this.auditLogs.push(l + "\n"));
         //this.getLogs(response.appTransaction, response.requestTime);
       },
       (error) => console.log(error)
     );
-    
   }
 
   /*
